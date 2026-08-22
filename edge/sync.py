@@ -68,7 +68,7 @@ class OfflineBufferSync:
         conn.commit()
         conn.close()
 
-    def sync_pending((self)):
+    def sync_pending(self):
         """
         Tries sending un-synced detections to FastAPI backend API.
         """

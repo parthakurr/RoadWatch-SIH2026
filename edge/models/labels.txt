@@ -1,0 +1,4 @@
+Pothole
+Longitudinal Crack
+Transverse Crack
+Alligator Crack

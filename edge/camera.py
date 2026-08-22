@@ -1,64 +1,64 @@
+import logging
 import time
-import os
+
 import cv2
 import numpy as np
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw
+
+logger = logging.getLogger(__name__)
+
 
 class CameraManager:
     """
-    Handles camera capture on Raspberry Pi (picamera2 / OpenCV) or synthetic mock frames.
+    Handles camera capture on Raspberry Pi (OpenCV / picamera2) or synthetic mock frames.
     """
+
     def __init__(self, mock=False, camera_id=0):
         self.mock = mock
         self.camera_id = camera_id
         self.cap = None
-        
-        if not self.mock:
+
+        if mock:
+            logger.info("[CAMERA] Mock camera enabled")
+        else:
             try:
-                # Try opening OpenCV camera device
                 self.cap = cv2.VideoCapture(camera_id)
                 if not self.cap.isOpened():
-                    print("[CameraManager] Warning: Physical camera device not found. Switching to Mock mode.")
+                    logger.warning("[CAMERA] Physical camera not found — switching to mock mode")
                     self.mock = True
-            except Exception as e:
-                print(f"[CameraManager] Camera init failed ({e}). Switching to Mock mode.")
+                    logger.info("[CAMERA] Mock camera enabled")
+                else:
+                    logger.info("[CAMERA] OpenCV camera opened (device %s)", camera_id)
+            except Exception as exc:
+                logger.warning("[CAMERA] Camera init failed (%s) — switching to mock mode", exc)
                 self.mock = True
+                logger.info("[CAMERA] Mock camera enabled")
 
     def capture_frame(self):
-        """
-        Returns an OpenCV BGR frame (numpy ndarray).
-        """
+        """Return an OpenCV BGR frame (numpy ndarray)."""
         if not self.mock and self.cap and self.cap.isOpened():
             ret, frame = self.cap.read()
-            if ret:
+            if ret and frame is not None:
                 return frame
-        
-        # Synthetic frame generator for mock testing
+            logger.debug("[CAMERA] Empty frame from hardware camera — using mock fallback")
+
         return self._generate_mock_frame()
 
     def _generate_mock_frame(self):
-        # Create a synthetic 640x480 road surface frame
-        img = Image.new('RGB', (640, 480), color=(60, 64, 67)) # Asphalt grey
+        img = Image.new("RGB", (640, 480), color=(60, 64, 67))
         draw = ImageDraw.Draw(img)
-        
-        # Draw road lane markings (white dashed line)
+
         t = int(time.time() * 2) % 40
         for y in range(-40 + t, 480, 60):
             draw.rectangle([315, y, 325, y + 30], fill=(240, 240, 240))
-        
-        # Periodically draw a simulated pothole
-        if int(time.time()) % 6 in [0, 1]:
-            # Pothole dark ellipse with rough texture
+
+        if int(time.time()) % 6 in (0, 1):
             draw.ellipse([240, 200, 400, 310], fill=(20, 20, 22), outline=(40, 42, 45), width=4)
             draw.ellipse([250, 210, 390, 300], fill=(10, 10, 12))
-            
-            # Additional crack lines
             draw.line([240, 250, 210, 270], fill=(15, 15, 15), width=3)
             draw.line([400, 240, 430, 230], fill=(15, 15, 15), width=3)
 
-        # Convert PIL to OpenCV BGR format
-        frame = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
-        return frame
+        return cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
 
     def release(self):
         if self.cap and self.cap.isOpened():

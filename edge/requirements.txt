@@ -4,3 +4,4 @@ numpy>=1.22.0
 pillow>=9.0.0
 pynmea2>=1.18.0
 pyserial>=3.5
+pytest>=7.4.0

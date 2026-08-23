@@ -60,7 +60,7 @@ def render_depth_demo(video_path=None, output_path="docs/assets/road_damage_dept
 
             # Render HUD Overlay
             cv2.rectangle(frame, (10, 10), (380, 110), (20, 20, 20), -1)
-            cv2.putText(frame, "ROADWATCH EDGE AI DETECTOR v2.0", (20, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 2)
+            cv2.putText(frame, "ROADEYE EDGE AI DETECTOR v2.0", (20, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 2)
             cv2.putText(frame, f"FRAME: {f_idx+1:04d}/{num_frames} | FPS: 28.4", (20, 65), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
             cv2.putText(frame, "ACCURACY: 99.3% mAP50 | INT8 TFLITE", (20, 90), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
 

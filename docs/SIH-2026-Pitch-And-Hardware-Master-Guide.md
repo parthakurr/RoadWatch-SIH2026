@@ -1,4 +1,4 @@
-# RoadWatch — SIH 2026 Master Pitch & Hardware Readiness Guide
+# RoadEye — SIH 2026 Master Pitch & Hardware Readiness Guide
 
 ---
 
@@ -64,8 +64,8 @@ python3 main.py --backend-url http://YOUR_MAC_IP:8000
 
 > **"Respected Judges, India loses thousands of lives every year to unmonitored road potholes."**
 >
-> **"Current reporting relies on slow citizen complaints. We built RoadWatch — an autonomous, AI-driven municipal governance platform that mounts lightweight edge AI units onto existing city fleets like municipal garbage trucks."**
+> **"Current reporting relies on slow citizen complaints. We built RoadEye — an autonomous, AI-driven municipal governance platform that mounts lightweight edge AI units onto existing city fleets like municipal garbage trucks."**
 >
 > **"As vehicles drive their daily routes, our 99.3% accurate YOLOv8 model detects road defects, estimates relative depth severity, and geo-tags exact coordinates using Neo-6M GPS. When cellular connection drops, our offline SQLite buffer queues telemetry and auto-syncs when reconnected."**
 >
-> **"On the municipal dashboard, our 10-meter spatial deduplication algorithm prevents duplicate pins, while our auto-scan feature verifies contractor repairs automatically. RoadWatch transforms municipal road maintenance from reactive to fully automated."**
+> **"On the municipal dashboard, our 10-meter spatial deduplication algorithm prevents duplicate pins, while our auto-scan feature verifies contractor repairs automatically. RoadEye transforms municipal road maintenance from reactive to fully automated."**

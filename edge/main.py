@@ -20,7 +20,7 @@ def configure_logging(verbose: bool = False) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="RoadWatch Edge AI Daemon (Raspberry Pi 4)")
+    parser = argparse.ArgumentParser(description="RoadEye Edge AI Daemon (Raspberry Pi 4)")
     parser.add_argument("--mock", action="store_true", help="Run with mock camera & GPS generators")
     parser.add_argument("--mock-offline", action="store_true", help="Simulate no backend connectivity")
     parser.add_argument("--backend-url", default=DEFAULT_BACKEND_URL, help="FastAPI Backend URL")

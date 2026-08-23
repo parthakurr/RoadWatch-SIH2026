@@ -8,8 +8,8 @@ from routers import detections, potholes, analytics, export
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
-    title="RoadWatch Municipal Backend API",
-    description="Central ingestion, spatial deduplication, GIS map service, and repair tracking API for RoadWatch SIH Project.",
+    title="RoadEye Municipal Backend API",
+    description="Central ingestion, spatial deduplication, GIS map service, and repair tracking API for RoadEye SIH Project.",
     version="1.0.0"
 )
 
@@ -32,7 +32,7 @@ app.include_router(export.router)
 def root():
     return {
         "status": "online",
-        "service": "RoadWatch Central Backend",
+        "service": "RoadEye Central Backend",
         "docs_url": "/docs"
     }
 

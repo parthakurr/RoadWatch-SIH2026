@@ -1,10 +1,10 @@
-# RoadWatch — AI-Powered Pothole Detection & Municipal Road Governance System
+# RoadEye — AI-Powered Pothole Detection & Municipal Road Governance System
 
 [![SIH 2026](https://img.shields.io/badge/SIH-2026-amber)](https://sih.gov.in)
 [![Edge AI](https://img.shields.io/badge/Edge%20AI-Raspberry%20Pi%204-red)](#)
 [![Stack](https://img.shields.io/badge/Stack-FastAPI%20%7C%20React%20%7C%20YOLOv8%20%7C%20Leaflet-blue)](#)
 
-RoadWatch mounts a camera + Neo-6M GPS unit on municipal garbage/public vehicles. Using on-device Edge AI, it automatically detects road defects (potholes, cracks), auto geo-tags them, deduplicates occurrences within 10 meters, and streams actionable alerts to municipal road departments — eliminating reliance on citizen complaints.
+RoadEye mounts a camera + Neo-6M GPS unit on municipal garbage/public vehicles. Using on-device Edge AI, it automatically detects road defects (potholes, cracks), auto geo-tags them, deduplicates occurrences within 10 meters, and streams actionable alerts to municipal road departments — eliminating reliance on citizen complaints.
 
 ---
 

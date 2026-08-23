@@ -41,11 +41,11 @@ function LoginScreen({ onLogin }) {
     setError('');
 
     setTimeout(() => {
-      if (username === 'admin' && password === 'roadwatch2026') {
+      if (username === 'admin' && (password === 'roadeye2026' || password === 'roadwatch2026')) {
         sessionStorage.setItem('rw_auth', 'true');
         onLogin();
       } else {
-        setError('Invalid credentials. Use admin / roadwatch2026');
+        setError('Invalid credentials. Use admin / roadeye2026');
         setIsLoading(false);
       }
     }, 500);
@@ -56,10 +56,10 @@ function LoginScreen({ onLogin }) {
       <div className="w-full max-w-md fade-in">
         {/* Logo & Branding */}
         <div className="text-center mb-8">
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-amber-500 to-red-600 flex items-center justify-center font-bold text-white shadow-2xl shadow-amber-500/30 text-3xl mx-auto mb-4">
-            RW
+          <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-amber-500 to-red-600 flex items-center justify-center font-bold text-white shadow-2xl shadow-amber-500/30 text-3xl mx-auto mb-4 tracking-wider">
+            RE
           </div>
-          <h1 className="text-3xl font-black text-white tracking-tight">RoadWatch</h1>
+          <h1 className="text-3xl font-black text-white tracking-tight">RoadEye</h1>
           <p className="text-slate-400 text-sm mt-1">Municipal AI Road Governance Platform</p>
           <span className="inline-block mt-2 text-xs bg-amber-500/20 text-amber-400 px-3 py-1 rounded-full border border-amber-500/30 font-semibold">
             SIH 2026 — Command Center
@@ -117,12 +117,12 @@ function LoginScreen({ onLogin }) {
           </form>
 
           <div className="mt-5 pt-4 border-t border-slate-800 text-center">
-            <p className="text-xs text-slate-500">🔐 Demo Login: <code className="text-amber-400">admin</code> / <code className="text-amber-400">roadwatch2026</code></p>
+            <p className="text-xs text-slate-500">🔐 Demo Login: <code className="text-amber-400">admin</code> / <code className="text-amber-400">roadeye2026</code></p>
           </div>
         </div>
 
         <p className="text-center text-xs text-slate-600 mt-6">
-          Powered by RoadWatch Edge AI — Smart India Hackathon 2026
+          Powered by RoadEye Edge AI — Smart India Hackathon 2026
         </p>
       </div>
     </div>
@@ -309,7 +309,7 @@ export default function App() {
 
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'RoadWatch_Audit_Report.csv';
+    a.download = 'RoadEye_Audit_Report.csv';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -320,7 +320,7 @@ export default function App() {
 
     doc.setFontSize(20);
     doc.setTextColor(40);
-    doc.text('RoadWatch Municipal Audit Report', 14, 22);
+    doc.text('RoadEye Municipal Audit Report', 14, 22);
 
     doc.setFontSize(10);
     doc.setTextColor(100);
@@ -354,11 +354,11 @@ export default function App() {
       doc.setPage(i);
       doc.setFontSize(8);
       doc.setTextColor(150);
-      doc.text('RoadWatch SIH 2026 — Automated Road Damage Detection & Governance', 14, doc.internal.pageSize.height - 10);
+      doc.text('RoadEye SIH 2026 — Automated Road Damage Detection & Governance', 14, doc.internal.pageSize.height - 10);
       doc.text(`Page ${i} of ${pageCount}`, doc.internal.pageSize.width - 35, doc.internal.pageSize.height - 10);
     }
 
-    doc.save('RoadWatch_Audit_Report.pdf');
+    doc.save('RoadEye_Audit_Report.pdf');
   };
 
   // ─── Logout Handler ──────────────────────────────────────────────────────
@@ -451,12 +451,12 @@ export default function App() {
       {/* ─── Top Navigation Bar ─── */}
       <header className="bg-slate-900 border-b border-slate-800 px-4 md:px-6 py-3 flex flex-col md:flex-row items-center justify-between shadow-xl gap-3 shrink-0">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-red-600 flex items-center justify-center font-bold text-white shadow-lg shadow-amber-500/20 text-xl shrink-0">
-            RW
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-red-600 flex items-center justify-center font-bold text-white shadow-lg shadow-amber-500/20 text-xl shrink-0 tracking-wider">
+            RE
           </div>
           <div>
             <h1 className="text-lg md:text-xl font-bold tracking-wide text-white flex items-center gap-2">
-              RoadWatch <span className="text-xs bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full border border-amber-500/30">SIH 2026</span>
+              RoadEye <span className="text-xs bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full border border-amber-500/30">SIH 2026</span>
             </h1>
             <p className="text-xs text-slate-400 hidden sm:block">Municipal Automated Edge AI Pothole Governance System</p>
           </div>
@@ -880,7 +880,7 @@ export default function App() {
 
       {/* ─── Footer ─── */}
       <footer className="bg-slate-900 border-t border-slate-800 px-6 py-2.5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500 shrink-0">
-        <span>Powered by <strong className="text-amber-400/80">RoadWatch AI</strong> — Smart India Hackathon 2026</span>
+        <span>Powered by <strong className="text-amber-400/80">RoadEye AI</strong> — Smart India Hackathon 2026</span>
         <span>Edge AI • Haversine Dedup • FastAPI • React Leaflet GIS</span>
       </footer>
     </div>

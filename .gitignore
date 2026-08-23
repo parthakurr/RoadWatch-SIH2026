@@ -1,0 +1,44 @@
+# Python / Virtualenv
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+ENV/
+
+# Node.js / Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+.npm
+.eslintcache
+
+# SQLite Databases & Local Buffers
+*.db
+*.sqlite3
+backend/roadwatch.db
+edge/edge_buffer.db
+edge/data/
+
+# OS / Editor junk
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.vscode/
+.idea/
+
+# Large Model Weights (Keep in Google Drive / HuggingFace releases)
+*.pt
+*.onnx
+*.tflite
+!edge/models/labels.txt
+
+# Environment variables
+.env
+.env.local

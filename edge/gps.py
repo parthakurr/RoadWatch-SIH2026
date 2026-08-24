@@ -37,25 +37,41 @@ class GPSManager:
         Returns dict:
         {'latitude': float, 'longitude': float, 'speed_kmh': float, 'valid': bool, 'timestamp': float}
         """
-        if not self.mock and self.serial_conn:
+        if self.mock:
+            return self._get_mock_coordinates()
+
+        if self.serial_conn and self.serial_conn.is_open:
             try:
                 import pynmea2
 
-                line = self.serial_conn.readline().decode("ascii", errors="replace")
-                if line.startswith("$GPRMC") or line.startswith("$GPGGA"):
-                    msg = pynmea2.parse(line)
-                    if hasattr(msg, "latitude") and msg.latitude != 0.0:
-                        return {
-                            "latitude": round(msg.latitude, 6),
-                            "longitude": round(msg.longitude, 6),
-                            "speed_kmh": round(getattr(msg, "spd_over_grnd", 0.0) * 1.852, 1),
-                            "valid": True,
-                            "timestamp": time.time(),
-                        }
+                for _ in range(10):
+                    if self.serial_conn.in_waiting == 0:
+                        time.sleep(0.05)
+                        if self.serial_conn.in_waiting == 0:
+                            break
+
+                    line = self.serial_conn.readline().decode("ascii", errors="replace").strip()
+                    if line.startswith("$GPRMC") or line.startswith("$GPGGA"):
+                        msg = pynmea2.parse(line)
+                        if hasattr(msg, "latitude") and msg.latitude != 0.0 and getattr(msg, "is_valid", True):
+                            spd = getattr(msg, "spd_over_grnd", 0.0) or 0.0
+                            return {
+                                "latitude": round(msg.latitude, 6),
+                                "longitude": round(msg.longitude, 6),
+                                "speed_kmh": round(float(spd) * 1.852, 1),
+                                "valid": True,
+                                "timestamp": time.time(),
+                            }
             except Exception as exc:
                 logger.debug("[GPS] Serial read failed: %s", exc)
 
-        return self._get_mock_coordinates()
+        return {
+            "latitude": 0.0,
+            "longitude": 0.0,
+            "speed_kmh": 0.0,
+            "valid": False,
+            "timestamp": time.time(),
+        }
 
     def _get_mock_coordinates(self):
         self.current_lat += (random.random() - 0.48) * 0.0003

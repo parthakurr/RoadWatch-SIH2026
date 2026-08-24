@@ -178,3 +178,39 @@ def test_mark_synced_updates_status(temp_db, sample_gps, sample_detection):
     updated = storage.get_incident_by_id(incident_id)
     assert updated["sync_status"] == SYNC_STATUS_SYNCED
     assert updated["synced"] == 1
+
+
+def test_production_gps_invalid_lock_returns_invalid_without_mocking():
+    """TEST 7: production GPS without mock returns valid=False when serial has no fix."""
+    from gps import GPSManager
+
+    gps_manager = GPSManager(mock=False, port="INVALID_PORT")
+    # Should switch mock=True when port fails to open on laptop,
+    # but if serial_conn is set to a mock serial with no fix, returns valid=False.
+    mock_serial = MagicMock()
+    mock_serial.is_open = True
+    mock_serial.in_waiting = 0
+    gps_manager.mock = False
+    gps_manager.serial_conn = mock_serial
+
+    coords = gps_manager.get_coordinates()
+    assert coords["valid"] is False
+    assert coords["latitude"] == 0.0
+    assert coords["longitude"] == 0.0
+
+
+def test_detector_heuristic_runs_when_no_model():
+    """TEST 8: detector uses heuristic pipeline cleanly when no TFLite model is present."""
+    import numpy as np
+    from camera import CameraManager
+    from detector import RoadDamageDetector
+
+    cam = CameraManager(mock=True)
+    frame = cam.capture_frame()
+    assert isinstance(frame, np.ndarray)
+
+    detector = RoadDamageDetector(model_path="non_existent_model.tflite")
+    assert detector.use_tflite is False
+    detections = detector.detect(frame)
+    assert isinstance(detections, list)
+
